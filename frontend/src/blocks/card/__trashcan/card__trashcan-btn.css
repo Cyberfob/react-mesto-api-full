@@ -1,0 +1,22 @@
+.card__trashcan-btn {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-image: url(../../../images/trashcan_icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+    box-sizing: border-box;
+    width: 18px;
+    height: 19px;
+    z-index: 1;
+}
+
+.card__trashcan-btn:hover {
+    opacity: 0.5;
+    transition: 0.7s;
+    cursor: pointer;
+}

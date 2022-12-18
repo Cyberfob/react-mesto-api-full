@@ -1,0 +1,15 @@
+.profile__foto-overlay {
+    position: absolute;
+    height: 120px;
+    width: 120px;
+}
+
+.profile__foto-overlay:hover {
+    background: #000000;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../../../images/btn_img_avatar.svg);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.7s;
+}

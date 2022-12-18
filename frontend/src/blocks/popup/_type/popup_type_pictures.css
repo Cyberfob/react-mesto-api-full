@@ -1,0 +1,10 @@
+.popup_type_pictures {
+    margin: 90px auto 0px auto;
+    max-width: max-content;
+}
+
+@media screen and (max-width: 480px) {
+    .popup_type_pictures {
+        margin: 136px auto;
+    }
+}

@@ -1,0 +1,11 @@
+.modal__input_type_auth {
+    background-color: black;
+    border-bottom: 2px solid #CCCCCC;
+    color: #CCCCCC;
+    max-width: 358px;
+}
+
+.modal__input:first-child {
+    margin-bottom: 30px;
+    margin-right: 0px;
+}

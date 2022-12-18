@@ -1,0 +1,30 @@
+.profile__btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    background: none;
+    box-shadow: none;
+    margin-left: 18px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-image: url(../../../images/btn_img.svg);
+    background-size: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.profile__btn:hover {
+    opacity: 0.6;
+    transition: 0.7s;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .profile__btn {
+        width: 18px;
+        height: 18px;
+        margin-left: 10px;
+        background-size: 7.5px;
+    }
+}

@@ -1,0 +1,16 @@
+.modal__input-error {
+    position: absolute;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ff0000;
+    margin-top: 25px;
+    max-width: 365px;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .modal__input-error {
+        max-width: 260px;
+    }
+}

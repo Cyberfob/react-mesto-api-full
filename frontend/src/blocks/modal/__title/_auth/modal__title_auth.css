@@ -1,0 +1,9 @@
+.modal__title_auth {
+    margin: 0px auto 50px auto;
+}
+
+@media screen and (max-width: 400px) {
+    .modal__title_auth {
+        margin-bottom: 40px;
+    }
+}

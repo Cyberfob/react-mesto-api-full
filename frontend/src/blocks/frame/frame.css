@@ -1,0 +1,9 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+    max-height: max-content;
+    margin: 8px auto 0px auto;
+    z-index: 2;
+    align-items: center;
+}
