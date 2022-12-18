@@ -1,4 +1,4 @@
-const API_URL = "http://api.apetruhin.nomoredomains.club";
+const API_URL = "https://api.apetruhin.nomoredomains.club";
 
 export const register = (password, email) => {
     return fetch(`${API_URL}/signup`, {
@@ -19,7 +19,7 @@ export const login = (password, email) => {
         method: "POST",
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({ password, email })
     })
@@ -32,7 +32,7 @@ export const checkToken = token => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            authorization: `Bearer ${token}`
         }
     }).then(checkResponse)
         .catch(err => {

@@ -64,11 +64,11 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        console.log(card)
+        const isLiked = card.likes.some((i) => i === currentUser._id);
         api.setLike(card._id, !isLiked)
             .then(newCard => {
-                setCards(state =>
-                    state.map(c => (c._id === card._id ? newCard : c))
+                setCards(state => state.map(c => (c._id === card._id ? newCard.data : c))
                 );
             })
             .catch(err => {
@@ -79,7 +79,7 @@ function App() {
     React.useEffect(() => {
         api.getUserInfo()
             .then(response => {
-                setCurrentUser(response);
+                setCurrentUser(response.data);
             })
             .catch(err => {
                 console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
@@ -128,7 +128,7 @@ function App() {
     function handleUpdateAvatar(link) {
         api.setProfileAvatar(link)
             .then(res => {
-                currentUser.avatar = res.avatar;
+                currentUser.avatar = res.data.avatar;
                 closeAllPopups();
             })
             .catch(err => {
@@ -139,7 +139,7 @@ function App() {
     function handleAddPlace({ name, link }) {
         api.addCard({ name, link })
             .then(newCards => {
-                setCards([newCards, ...cards]);
+                setCards([newCards.data, ...cards]);
                 closeAllPopups();
             })
             .catch(err => {

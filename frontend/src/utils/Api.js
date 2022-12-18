@@ -38,7 +38,7 @@ class Api {
             headers: this._headers,
         } 
         return fetch(`${this._url}/cards`,request)
-        .then((res) => {console.log(res)})
+        .then(this._checkResponse)
     }
 
 
@@ -55,7 +55,7 @@ class Api {
 
     setLike(_id, state) {
         const request = {
-            method: `${state ? 'PUT' : 'DELETE'}`,
+            method: `${!state ? 'PUT' : 'DELETE'}`,
             headers: this._headers,
         } 
         return fetch(`${this._url}/cards/${_id}/likes`,request)
@@ -89,9 +89,9 @@ class Api {
 }
 
 const api = new Api ({
-    url: 'http://api.apetruhin.nomoredomains.club',
+    url: 'https://api.apetruhin.nomoredomains.club',
         headers: {
-            authorization: localStorage.getItem("jwt"),
+            authorization: `Bearer ${localStorage.getItem("jwt")}`,
             'Content-Type': 'application/json'
         }
     }

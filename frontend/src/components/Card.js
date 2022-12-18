@@ -4,9 +4,11 @@ import { UserDataContext } from "../contexts/CurrentUserContext"
 export default function Card(props) {
     const userData = React.useContext(UserDataContext)
 
-    const isOwner = props.card.owner._id === userData._id
+    console.log(props.card.likes)
+   // console.log(props.card)
+    const isOwner = props.card.owner === userData._id
     const cardTrashcanButtonClassName = (`card__trashcan-btn ${!isOwner && 'card__trashcan-btn_hidden'}`)
-    const isLiked = props.card.likes.some(user => user._id === userData._id)
+    const isLiked = props.card.likes.some(user => user === userData._id) 
     const cardLikeButtonState = `card__like ${isLiked && 'card__like_active'}`
 
     function handleLikeClick(card) {
