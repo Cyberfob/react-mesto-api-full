@@ -64,16 +64,22 @@ function App() {
     }
 
     function handleCardLike(card) {
-        console.log(card)
-        const isLiked = card.likes.some((i) => i === currentUser._id);
-        api.setLike(card._id, !isLiked)
-            .then(newCard => {
-                setCards(state => state.map(c => (c._id === card._id ? newCard.data : c))
-                );
-            })
-            .catch(err => {
-                console.log(err);
-            });
+       //const isLiked = card.likes.some((i) => i === currentUser._id); Метод some не работает, при записи card.likes.some(i=> i === user) - в i попадает объект целиком
+        let isLiked = false
+            for (let index = 0; index < card.likes.length; ++index) {
+                if (card.likes[index] === currentUser._id) {
+                    isLiked = true;
+                    break;
+                }   
+            }
+        api.setLike(card._id, isLiked)
+        .then(newCard => {
+            setCards(state => state.map(c => (c._id === card._id ? newCard.data : c))
+            );
+        })
+        .catch(err => {
+            console.log(err);
+        });    
     }
 
     React.useEffect(() => {
