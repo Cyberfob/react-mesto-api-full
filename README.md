@@ -4,5 +4,5 @@
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
 1. ip 51.250.29.138
-2. frontend - http://apetruhin.nomoredomains.club/cards
-3. backend - http://api.apetruhin.nomoredomains.club/cards
+2. frontend - http://apetruhin.nomoredomains.club
+3. backend - http://api.apetruhin.nomoredomains.club
