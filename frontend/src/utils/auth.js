@@ -1,4 +1,4 @@
-const API_URL = "https://api.apetruhin.nomoredomains.club";
+const API_URL = "https://api.apetruhin.nomoredomains.club";//'http://localhost:3001'; //"https://api.apetruhin.nomoredomains.club";
 
 export const register = (password, email) => {
     return fetch(`${API_URL}/signup`, {

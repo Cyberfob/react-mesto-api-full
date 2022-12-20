@@ -41,7 +41,7 @@ function App() {
     
 
     React.useEffect(() => {
-        auth.checkToken(localStorage.getItem("jwt"));
+        checkToken();
         api
             .getInitCards()
             .then(response => {
@@ -52,6 +52,50 @@ function App() {
                 console.log(err);
             });
     }, []);
+
+    function checkToken() {
+        const jwt = localStorage.getItem('jwt')
+        if (!jwt) return;
+        auth.checkToken(jwt).then((data) => {
+          setIsLoggedIn(true);
+          setUserData({
+            email: data.email
+          });
+          setCurrentUser({
+            name: data.name,
+            about: data.about,
+            avatar: data.avatar,
+            _id: data._id
+          })
+          navigate('/');
+        }).catch((err) => {
+          console.log(err)
+        });
+      }
+
+      const handleLogin = async (password, email) => {
+        const data = await auth.login(password, email);
+          if (!data.token)
+              throw new Error('jwt error');
+          localStorage.setItem('jwt', data.token);
+          setIsLoggedIn(true);
+          api.getInitCards()
+              .then((res) => {
+                  setCards(res.data);
+              }).catch((err) => {
+                  console.log(err);
+              });
+              api.getUserInfo()
+              .then(res => {
+                  console.log(res)
+                  console.log(res.data)
+                  setCurrentUser(res.data);
+          })
+          .catch(err => {
+              console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
+          });
+          navigate("/");
+      };
 
     function handleDeleteCard(card) {
         api.removeCard(card._id)
@@ -82,15 +126,7 @@ function App() {
         });    
     }
 
-    React.useEffect(() => {
-        api.getUserInfo()
-            .then(response => {
-                setCurrentUser(response.data);
-            })
-            .catch(err => {
-                console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
-            });
-    }, []);
+    
 
     function handleCardClick(card) {
         setSelectedCard(card);
@@ -122,8 +158,8 @@ function App() {
     function handleUpdateUser({ name, about }) {
         api.setUserInfo({ name, about })
             .then(res => {
-                currentUser.name = res.name;
-                currentUser.about = res.about;
+                currentUser.name = res.data.name;
+                currentUser.about = res.data.about;
                 closeAllPopups();
             })
             .catch(err => {
@@ -197,7 +233,9 @@ function App() {
         }
     }, []);
 
-    const handleLogin = (password, email) => {
+   
+
+   /* const handleLogin = (password, email) => {
         auth.login(password, email)
             .then(res => {
                 if (res.token) {
@@ -205,6 +243,7 @@ function App() {
                     localStorage.setItem("jwt", res.token);
                     setIsLoggedIn(true);
                     setUserData({ email: email, password: password });
+                    
                     //console.log(userData);
                     navigate("/");
                 }
@@ -214,7 +253,27 @@ function App() {
                 setIsStatusPopupOpen(true);
                 setAuthState("fail");
             });
-    };
+            auth.checkToken(localStorage.getItem("jwt"));
+            api.getUserInfo()
+                        .then(response => {
+                            console.log(response)
+                            console.log(response.data)
+                            setCurrentUser(...response.data);
+                    })
+                    .catch(err => {
+                        console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
+                    });
+    };*/
+
+    React.useEffect(() => {
+        api.getUserInfo()
+            .then(response => {
+                setCurrentUser(response.data);
+            })
+            .catch(err => {
+                console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
+            });
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("jwt");

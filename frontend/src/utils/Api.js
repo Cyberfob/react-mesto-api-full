@@ -12,11 +12,19 @@ class Api {
         }       
     }
 
-    getUserInfo() {
+    _getToken() {
+        return localStorage.getItem('jwt');
+    }
+
+    async getUserInfo() {
         const request = {
             method: "GET",
-            headers: this._headers,
-        } 
+            headers: {
+                Authorization: `Bearer ${this._getToken()}`,
+                ...this._headers
+            }
+                    
+            }
         return fetch(`${this._url}/users/me`,request)
             .then(this._checkResponse)
     }
@@ -24,7 +32,10 @@ class Api {
     setUserInfo({name,about}) {
         const request = {
             method: "PATCH",
-            headers: this._headers,
+            headers: {
+                Authorization: `Bearer ${this._getToken()}`,
+                ...this._headers
+            },
             body: JSON.stringify({name,about})
         }
         return fetch(`${this._url}/users/me`,request)
@@ -32,20 +43,26 @@ class Api {
     }
     
 
-    getInitCards() {
+    async getInitCards() {
         const request = {
             method: "GET",
-            headers: this._headers,
+            headers: {
+                Authorization: `Bearer ${this._getToken()}`,
+                ...this._headers
+            }
         } 
-        return fetch(`${this._url}/cards`,request)
-        .then(this._checkResponse)
+        const res = await fetch(`${this._url}/cards`, request);
+        return this._checkResponse(res);
     }
 
 
     addCard({name,link}) {
         const request = {
             method: "POST",
-            headers: this._headers,
+            headers: {
+                Authorization: `Bearer ${this._getToken()}`,
+                ...this._headers
+            },
             body: JSON.stringify({name,link})
         } 
         return fetch(`${this._url}/cards`,request)
@@ -56,7 +73,10 @@ class Api {
     setLike(_id, state) {
         const request = {
             method: `${!state ? 'PUT' : 'DELETE'}`,
-            headers: this._headers,
+            headers: {
+                Authorization: `Bearer ${this._getToken()}`,
+                ...this._headers
+            },
         } 
         return fetch(`${this._url}/cards/${_id}/likes`,request)
         .then(this._checkResponse)
@@ -66,7 +86,10 @@ class Api {
         
             const request = {
                 method: "DELETE",
-                headers: this._headers,
+                headers: {
+                    Authorization: `Bearer ${this._getToken()}`,
+                    ...this._headers
+                },
             } 
             return fetch(`${this._url}/cards/${_id}`,request)
             .then(this._checkResponse)
@@ -77,7 +100,10 @@ class Api {
         
             const request = {
                 method: "PATCH",
-                headers: this._headers,
+                headers: {
+                    Authorization: `Bearer ${this._getToken()}`,
+                    ...this._headers
+                },
                 body: JSON.stringify({
                     avatar: link
                 })
@@ -89,9 +115,8 @@ class Api {
 }
 
 const api = new Api ({
-    url: 'https://api.apetruhin.nomoredomains.club',
+    url: 'https://api.apetruhin.nomoredomains.club',//'http://localhost:3001', //'https://api.apetruhin.nomoredomains.club',
         headers: {
-            authorization: `Bearer ${localStorage.getItem("jwt")}`,
             'Content-Type': 'application/json'
         }
     }
