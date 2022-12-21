@@ -8,7 +8,7 @@ export default function Card(props) {
     const cardTrashcanButtonClassName = (`card__trashcan-btn ${!isOwner && 'card__trashcan-btn_hidden'}`)
     let isLiked = false //= props.card.likes.some(user => user === userData._id) Метод some не работает, при записи card.likes.some(i=> i === user) - в i попадает объект целиком
         for (let index = 0; index < props.card.likes.length; index++) {
-            if (props.card.likes[index] === props.card.owner) {
+            if (props.card.likes[index] === userData._id) {
                 isLiked = true;
                 break;
             }

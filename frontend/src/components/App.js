@@ -90,6 +90,9 @@ function App() {
                   console.log(res)
                   console.log(res.data)
                   setCurrentUser(res.data);
+                  setUserData({
+                    email: res.data.email
+                  });
           })
           .catch(err => {
               console.log(`Ошибка при запросе данных пользователя:\n ${err}`);
